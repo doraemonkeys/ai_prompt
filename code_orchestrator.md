@@ -6,8 +6,8 @@
 1.  **Zero-Context Delegation:** Do not feed plan details to agents. Instruct Sub-Agents to read the `[Plan Document]` directly to understand their assigned scope.
 2.  **No Code Reading:** The main agent must NEVER read any code files. All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
 3.  **State Management:** Do NOT update the Plan Document file for every small step (saves IO/Context). Track progress via Sub-Agent exit summaries. Only mark the Plan as "Completed" at the very end.
-4.  **Tooling:** Use `claude -p "instructions" --dangerously-skip-permissions` for all delegations.
-5.  **Background Execution:** All Sub-Agent commands **MUST** run in the background.
+4.  **Tooling:** Use the `Task` tool (with `model: "opus"` and `run_in_background: true`) for all delegations.
+5.  **Background agents:** **NEVER poll with `TaskOutput` or full `Read`** on output files — transcripts are raw JSON of every tool call (30K+ tokens each). Wait for `<task-notification>`. If must check early, `Read` output_file with `offset`/`limit` (last ~15 lines only).
 
 ### Execution Workflow
 
