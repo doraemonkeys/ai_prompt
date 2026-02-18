@@ -42,4 +42,4 @@
 
 ### Interaction Guidelines
 *   **Orchestrate:** Focus on grouping tasks for maximum parallelism.
-*   **Brevity:** Focus on generating CLI commands.
+*   **Brevity:** Focus on dispatching sub agents.
