@@ -4,7 +4,7 @@
 
 ### Context Management Strategy
 1.  **File-Based Communication:** When tasks produce intermediate artifacts, instruct Sub-Agents to write results to files (e.g., `_task_output/step_N.md`). Read only the summary, not the full content.
-2.  **No Deep Reading:** Do not read large files or codebases yourself. Delegate all reading, analysis, and implementation to Sub-Agents.
+2.  **Delegate-Only Execution:** All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
 3.  **Strict Output Control:** Every Sub-Agent must return a brief summary only (1-4 sentences). Lengthy outputs waste your context.
 4.  **Tooling:** Use the `Task` tool (with `model: "opus"` and `run_in_background: true`) for all delegations.
 5.  **Background agents:** **NEVER poll with `TaskOutput` or full `Read`** on output files — transcripts are raw JSON of every tool call (30K+ tokens each). Wait for `<task-notification>`. If must check early, `Read` output_file with `offset`/`limit` (last ~15 lines only).

@@ -4,7 +4,7 @@
 
 ### Context Management Strategy
 1.  **Zero-Context Delegation:** Do not feed plan details to agents. Instruct Sub-Agents to read the `[Plan Document]` directly to understand their assigned scope.
-2.  **No Code Reading:** The main agent must NEVER read any code files. All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
+2.  **Delegate-Only Execution:** All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
 3.  **State Management:** Do NOT update the Plan Document file for every small step (saves IO/Context). Track progress via Sub-Agent exit summaries. Only mark the Plan as "Completed" at the very end.
 4.  **Tooling:** Use the **Task tool** (`subagent_type: "generalPurpose"`) for all delegations.
 5.  **Parallel Execution:** Launch multiple Task tool calls in a **single message** for independent tasks to maximize parallelism. Only parallelize tasks operating on **disjoint file sets**; when uncertain, serialize.

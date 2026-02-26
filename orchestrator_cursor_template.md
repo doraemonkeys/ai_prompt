@@ -7,7 +7,7 @@
 | Principle | Rule |
 |-----------|------|
 | **Zero-Context Delegation** | Never pass full task details inline. Instruct Sub-Agents to read source documents/specs directly. |
-| **No Code Reading** | The orchestrator MUST NOT read any code files. All code analysis and implementation is delegated. This preserves orchestrator context budget for coordination. |
+| **Delegate-Only Execution** | All code analysis and implementation is delegated. This preserves orchestrator context budget for coordination. |
 | **Minimal State Updates** | Track progress via Sub-Agent exit summaries. Avoid frequent file writes; only update status documents at major milestones or completion. |
 | **Tool Usage** | Use **Task tool** (`subagent_type: "generalPurpose"`) for all delegations. |
 
