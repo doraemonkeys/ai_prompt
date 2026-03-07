@@ -15,7 +15,7 @@
 *   Analyze the `[Plan Document]` to identify or split tasks that can run in parallel.
 *   Task Sizing: Ensure each delegated task is appropriately scoped—large enough to be meaningful, but small enough to avoid Sub-Agent context overflow that prevents completion.
 *   Launch one or multiple background Sub-Agents simultaneously for independent tasks.
-*   **Concurrency Safety:** Ensure parallel tasks touch disjoint file sets; if unavoidable, serialize those tasks or split files first to prevent write conflicts.
+*   **Concurrency Awareness:** Prefer parallel dispatch; serialize only when tasks have strong sequential dependencies (e.g., later task's design depends on earlier task's output). Inform each Sub-Agent that other agents may be concurrently editing nearby files—trust it to detect and resolve minor edit conflicts on its own.
 *   **Sub-Agent Instructions:**
     *   Read the Plan.
     *   Implement the assigned scope fully.
