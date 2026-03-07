@@ -32,3 +32,6 @@ go.work.sum
 # .vscode/
 
 *gitignore_*
+
+# Workflow runtime state
+.agents/
