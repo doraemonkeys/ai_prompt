@@ -88,13 +88,13 @@ For the current goal (first `pending` goal in `goals.md`), update its status to 
 
 ### Phase 3: Plan Review Loop
 
-Execute this loop. **Maximum 6 rounds.** Terminate early when reviewers find no architectural or design-flaw issues.
+Execute this loop. **Minimum 2 rounds, maximum 6 rounds.** After the 2nd round, terminate early when reviewers find no architectural or design-flaw issues.
 
 **3.1 — Parallel Review**
 
 Launch **Claude Review Agent** (via Task tool) and **Codex Review** (via shell) simultaneously with the following shared prompt — substituting `{output_file}` with `issues_claude.md` or `issues_codex.md` respectively:
 
-> Read the plan at `.agents/tasks/{goal_name}/plan.md`. Read `.agents/requirements/original.md` for the original requirement. Review the plan for: architectural soundness, design flaws, missing edge cases, integration risks, and feasibility. Write findings to `.agents/tasks/{goal_name}/plan_review/round_{N}/{output_file}`. End with a summary line: `**Summary: X major, Y minor issues.**` Return that summary line only.
+> Read the plan at `.agents/tasks/{goal_name}/plan.md`. Read `.agents/requirements/original.md` for the original requirement. Answer two questions: (1) Is this plan sound? (2) What specific problems does it have? Write findings to `.agents/tasks/{goal_name}/plan_review/round_{N}/{output_file}`. End with a summary line: `**Summary: X major, Y minor issues.**` Return that summary line only.
 
 **3.2 — Issue Validation**
 
@@ -107,11 +107,12 @@ After both reviews complete:
 
 Read only the verdict summary line from the Verdict Agent's return value.
 
-*   **No MAJOR issues:** Exit review loop → proceed to 3.4.
+*   **No MAJOR issues (and round ≥ 2):** Exit review loop → proceed to 3.4.
 *   **MAJOR issues that raise design questions:** If any validated issue involves a design decision that requires user input (e.g., choosing between architectural approaches), ask the user directly before revising. Record decisions to `.agents/requirements/clarifications.md`.
-*   **MAJOR issues remain:** Dispatch a **Plan Revision Agent:**
-    "Read validated issues in `.agents/tasks/{goal_name}/plan_review/round_{N}/verdict.md`. Read and update the plan at `.agents/tasks/{goal_name}/plan.md` to address all MAJOR issues. Explore the codebase if needed to inform revisions. Return a one-line summary of changes made."
-    Increment round counter. If round > 6, exit loop and flag unresolved issues to user.
+*   **issues remain:** Dispatch a **Plan Revision Agent:**
+    "Read validated issues in `.agents/tasks/{goal_name}/plan_review/round_{N}/verdict.md`. Read and update the plan at `.agents/tasks/{goal_name}/plan.md` to address all issues. Explore the codebase if needed to inform revisions. Return a one-line summary of changes made."
+
+Increment round counter. If round > 6, exit loop and flag unresolved issues to user.
 
 **3.4 — Final Checkpoint**
 
