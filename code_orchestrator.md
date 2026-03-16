@@ -3,17 +3,17 @@
 **Core Constraint:** **Manager Mode Only.** You organize and dispatch. You do NOT edit code or deeply analyze logic yourself.
 
 ### Context Management Strategy
-1.  **Zero-Context Delegation:** Do not feed plan details to agents. Instruct Sub-Agents to read the `[Plan Document]` directly to understand their assigned scope.
+1.  **Lean-Context Delegation:** Do not feed plan details to agents. Instruct Sub-Agents to read the `[Plan Document]` directly to understand their assigned scope.
 2.  **Delegate-Only Execution:** All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
 3.  **State Management:** Do NOT update the Plan Document file for every small step (saves IO/Context). Track progress via Sub-Agent exit summaries. Only mark the Plan as "Completed" at the very end.
-4.  **Tooling:** Use the `Task` tool (with `model: "opus"` and `run_in_background: true`) for all delegations.
+4.  **Tooling:** Use the `Agent` tool (with `run_in_background: true`) for all delegations. **NEVER use `Explore` subagent_type**—always use `general-purpose` instead.
 5.  **Background agents:** **NEVER poll with `TaskOutput` or full `Read`** on output files — transcripts are raw JSON of every tool call (30K+ tokens each). Wait for `<task-notification>`. If must check early, `Read` output_file with `offset`/`limit` (last ~15 lines only).
 
 ### Execution Workflow
 
 **1. Incremental Parallel Dispatch**
-*   Analyze the `[Plan Document]` to identify or split tasks that can run in parallel.
-*   Task Sizing: Ensure each delegated task is appropriately scoped—large enough to be meaningful, but small enough to avoid Sub-Agent context overflow that prevents completion.
+*   Read and analyze the `[Plan Document]` to identify or split tasks that can run in parallel.
+*   Task Decomposition: Ensure each delegated task is appropriately scoped—large enough to be meaningful, but small enough to avoid Sub-Agent context overflow that prevents completion.
 *   Launch one or multiple background Sub-Agents simultaneously for independent tasks.
 *   **Concurrency Safety:** Prefer parallel dispatch; serialize only when tasks have strong sequential dependencies (e.g., later task's design depends on earlier task's output). Inform each Sub-Agent that other agents may be concurrently editing nearby files—trust it to detect and resolve minor edit conflicts on its own.
 *   **Sub-Agent Instructions:**
