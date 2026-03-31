@@ -6,7 +6,7 @@
 1.  **Lean-Context Delegation:** Do not feed plan details to agents. Instruct Sub-Agents to read the `[Plan Document]` directly to understand their assigned scope.
 2.  **Delegate-Only Execution:** All code reading, analysis, and implementation tasks must be delegated to Sub-Agents to preserve orchestrator context.
 3.  **State Management:** Do NOT update the Plan Document file for every small step (saves IO/Context). Track progress via Sub-Agent exit summaries. Only mark the Plan as "Completed" at the very end.
-4.  **Tooling:** All Sub-Agents must use the `worker` type for delegation, must explicitly specify the strongest available model, and must set `reasoning_effort` to `high` or `xhigh`.
+4.  **Tooling:** All Sub-Agents must use the `worker` type for delegation, must explicitly specify the strongest available model, and must set `reasoning_effort` to `high` or `xhigh`. Do not set `fork_context` to `true`; otherwise, the worker may incorrectly assume it is also the Orchestrator.
 5.  **Background Execution:** All Sub-Agent tasks **MUST** run in the background.
 
 ### Execution Workflow
