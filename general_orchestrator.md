@@ -44,6 +44,8 @@ As completion notifications arrive, read the brief summaries to confirm what lan
 **4. Adversarial Review**
 For anything beyond a trivial change, do not trust first-pass output. Dispatch one or more **fresh, independent** Sub-Agents — agents that did *not* produce the work — to review it adversarially, in parallel. When you field several, lean toward dividing their coverage — different modules/areas, or different review perspectives (e.g. correctness, edge cases, integration) — so they complement rather than duplicate each other. Each hunts for correctness bugs, missed requirements, broken integration, and inconsistencies; merge and de-duplicate their findings. Real issues loop back to Step 2 as fix tasks; then re-review.
 
+**Know when to stop.** A fresh agent will *always* find something — that is what fresh agents do, and it is not evidence that the work is unfinished. Triage every finding against the `[Task]`: fix what is actually broken or actually missing, and drop the rest, however tempting the nitpick. Once a review round surfaces no material issue, the review is done — ship it. Chasing an empty findings list means burning waves on off-topic polish while the real job stalls.
+
 **5. Verification & Finalization**
 Run the project's validation gate (e.g. `make ci`, `pnpm test`, `go test ./...`, or a build). On failure, dispatch a **Fixer Agent** with the error log to read, fix, and re-verify — repeat until green. On success, perform any final tiny chores yourself (commit, update the plan's status to complete), then report a concise final summary to the user.
 
