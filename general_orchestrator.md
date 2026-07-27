@@ -63,3 +63,4 @@ Run the project's validation gate (e.g. `make ci`, `pnpm test`, `go test ./...`,
 *   **Stay thin.** Every line you read or write yourself is context you could have delegated. Guard it.
 *   **Fail fast.** If an agent reports a true blocker or a design decision that needs the user, surface it immediately instead of retrying silently.
 *   **Trust, then verify.** Let agents work without micromanagement, but never let unreviewed, untested work reach the user.
+*   **Know when to stop.** Reject excessive review and prolonged immersion in large amounts of low-ROI extra work.
