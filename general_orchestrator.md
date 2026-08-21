@@ -16,6 +16,7 @@
 6.  **Background Execution.** Dispatch Sub-Agents to run in the background and let them work. Wait for their completion notifications rather than blocking on or polling any single one. This is what lets you hold many agents in flight at once.
 7.  **Patience.** A real Sub-Agent task may take **20 minutes or longer**. Do not mistake "still working" for "stuck," and do not prematurely re-dispatch. If you need a progress signal, infer it from file last-modified timestamps rather than interrupting the agent.
 8.  **Fresh Contexts Over Worn Threads.** Sub-Agent context degrades with accumulation just like yours: don't habitually funnel task after task into the same long-lived agent until it bloats. Reuse an existing thread when its built-up context genuinely serves the next task (e.g. a follow-up on its own work); otherwise default to a fresh agent pointed at the shared hand-off files.
+9. **Tooling:** All Sub-Agents must set `reasoning_effort` to `xhigh` or `max`. Do not set `fork_context` to `true`; otherwise, the worker may incorrectly assume it is also the Orchestrator.
 
 ---
 
