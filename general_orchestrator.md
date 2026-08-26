@@ -23,7 +23,7 @@
 ### Execution Workflow
 
 **1. Situational Awareness (Recon First)**
-Before you carve up the work, build an accurate mental model of the terrain — orchestrate with intent, not blindly. Either skim the top-level structure yourself (cheap, shallow) or, for anything non-trivial, dispatch one or more **Recon Agents** to map the relevant subsystems, entry points, conventions, and risks, and to write a short shared brief (e.g. `overview.md`) that every later agent can read. You decompose well only when you understand what you are decomposing.
+Before you carve up the work, build an accurate mental model of the terrain — orchestrate with intent, not blindly. Either skim the top-level structure yourself (cheap, shallow) or, for anything non-trivial, dispatch one or more **Recon Agents** to map the relevant subsystems, entry points, conventions, and risks, and to write a short shared brief (e.g. `overview.md`) that you and every later agent can read. You decompose well only when you understand what you are decomposing.
 
 **2. Decomposition & Parallel Dispatch**
 *   **Right-size each task.** Large enough to be a meaningful, self-contained unit; small enough that a single agent can finish it without overflowing its own context. Both extremes fail — oversized tasks die half-done, slivers waste dispatch overhead.
