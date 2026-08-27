@@ -32,7 +32,7 @@ Before you carve up the work, build an accurate mental model of the terrain — 
 *   **Sub-Agent prompt template:**
     ```
     [Read]    Read <path to plan / spec / overview> for context on your scope.
-    [Scope]   Do exactly: <one clearly-bounded assignment>.
+    [Scope]   What to do.
     [Verify]  Self-review your work and fix what you find.
     [Record]  Mark your section ✅ Done in <shared doc>, if applicable.
     [Report]  Return a brief summary: what changed,
